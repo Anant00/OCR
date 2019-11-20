@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore.Images.Media.getBitmap
 import android.view.View.GONE
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         private var email: String? = null
         private var blockText: String? = null
         private var bitmap: Bitmap? = null
+        private var imageUri: Uri? = null
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +49,7 @@ class MainActivity : AppCompatActivity() {
             CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
                 val result = CropImage.getActivityResult(data)
                 if (resultCode == Activity.RESULT_OK) {
-                    val imageUri = result.uri
+                    imageUri = result.uri
                     animation_view.visibility = GONE
                     imageView.visibility = VISIBLE
                     imageView.setImageURI(imageUri)
@@ -76,6 +78,9 @@ class MainActivity : AppCompatActivity() {
                     val result = async { recognizeText(it, mutableImage) }
                     val details = result.await()
                     withContext(Main){
+                        email = details.email
+                        phoneNumber = details.phone
+                        blockText = details.blockText
                         setData(details.email, details.phone, details.blockText)
                     }
                 }
@@ -112,21 +117,30 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString("email", email)
-        outState.putString("phone", phoneNumber)
-        outState.putString("other", blockText)
-        outState.putParcelable("image",bitmap)
+        try {
+            outState.putString("email", email)
+            outState.putString("phone", phoneNumber)
+            outState.putString("other", blockText)
+            outState.putParcelable("uri", imageUri)
+        } catch (e: Exception) {
+            showLog(e.localizedMessage)
+        }
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        email = savedInstanceState.getString("email")
-        phoneNumber = savedInstanceState.getString("phone")
-        blockText = savedInstanceState.getString("other")
-        bitmap = savedInstanceState.getParcelable("image")
-        imageView.setImageBitmap(bitmap)
-        if (email!=null && phoneNumber!= null && blockText != null){
-            setData(email, phoneNumber, blockText)
+        try {
+            email = savedInstanceState.getString("email")
+            phoneNumber = savedInstanceState.getString("phone")
+            blockText = savedInstanceState.getString("other")
+            imageUri = savedInstanceState.getParcelable("uri")
+            imageView.setImageURI(imageUri)
+            if (email != null && phoneNumber != null && blockText != null) {
+                setData(email, phoneNumber, blockText)
+            }
+        } catch (e: Exception) {
+            showLog(e.localizedMessage)
         }
+
     }
 }
