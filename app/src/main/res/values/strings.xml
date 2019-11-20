@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">OCR</string>
+    <string name="pick_image">Pick Image</string>
+    <string name="card_details_will_be_shown_here_n_select_an_image_first">Card details will be shown here.\n Select an image first</string>
+</resources>

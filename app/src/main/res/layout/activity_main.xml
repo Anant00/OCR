@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_gravity="center_vertical"
+    android:layout_height="match_parent"
+    android:backgroundTint="#eeeeee"
+    android:orientation="vertical"
+    tools:context=".view.MainActivity">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_marginTop="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="vertical">
+          <com.airbnb.lottie.LottieAnimationView
+              android:id="@+id/animation_view"
+              android:layout_width="wrap_content"
+              android:layout_height="150dp"
+              app:lottie_rawRes="@raw/scan"
+              app:lottie_loop="true"
+              app:lottie_autoPlay="true" />
+          <ImageView
+              android:id="@+id/imageView"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:minHeight="200dp"
+              android:scaleType="centerCrop"
+              android:visibility="gone"
+              tools:ignore="ContentDescription" />
+          <com.google.android.material.card.MaterialCardView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              app:cardElevation="2dp"
+              android:minHeight="250dp"
+              android:focusable="true"
+              android:clickable="true"
+              android:background="?attr/selectableItemBackground"
+              app:strokeColor="@color/colorAccent"
+              android:layout_margin="4dp"
+              app:cardCornerRadius="8dp"
+              app:strokeWidth="2dp"
+              app:layout_constraintLeft_toLeftOf="parent"
+              app:layout_constraintRight_toRightOf="parent"
+              app:layout_constraintTop_toTopOf="parent">
+              <TextView
+                  android:id="@+id/tvEmpty"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center"
+                  android:textStyle="bold"
+                  android:gravity="center"
+                  android:textSize="21sp"
+                  android:textColor="#757575"
+                  android:text="@string/card_details_will_be_shown_here_n_select_an_image_first"               />
+            <LinearLayout
+                android:id="@+id/linData"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_margin="4dp"
+                    android:id="@+id/tvEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:padding="8dp"
+                    android:text="Email: "
+                    android:textColor="@color/colorBlack"/>
+                <TextView
+                    android:layout_margin="4dp"
+                    android:id="@+id/tvPhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:padding="8dp"
+                    android:text="Phone: "
+                    android:textColor="@color/colorBlack"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/colorAccent"/>
+
+                <TextView
+                    android:layout_margin="4dp"
+                    android:id="@+id/tvOtherDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:padding="8dp"
+                    android:text="Other Details: "
+                    android:textColor="@color/colorBlack"/>
+            </LinearLayout>
+          </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn"
+        android:layout_width="match_parent"
+        android:insetLeft="0dp"
+        android:insetRight="0dp"
+        android:insetBottom="0dp"
+        app:elevation="0dp"
+        android:layout_gravity="bottom"
+        android:insetTop="0dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:layout_height="wrap_content"
+        android:text="@string/pick_image"
+        android:clickable="true"
+        android:focusable="true"
+        app:cornerRadius="0dp"
+        style="@style/TextAppearance.AppCompat.Widget.Button.Colored"/>
+</LinearLayout>
